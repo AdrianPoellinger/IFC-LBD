@@ -27,7 +27,7 @@ export class Parser{
         this.ifcAPI = ifcAPI;
         this.verbose = settings.verbose;
         this.format = settings.outputFormat;
-        this.setNamespace(settings.namespace);
+        this.setNamespace(settings.namespace, settings.schemaNamespace);
     }
 
     public async getGlobalId(expressID: number){
@@ -84,9 +84,10 @@ export class Parser{
         return await jsonld.normalize(this.jsonLDObject);
     }
 
-    private setNamespace(ns: string){
+    private setNamespace(ns: string, schemaNs: string){
         this.jsonLDObject["@context"]["@base"] = ns;
         this.jsonLDObject["@context"].inst = ns;
+        this.jsonLDObject["@context"].ex = schemaNs;
     }
 
 }

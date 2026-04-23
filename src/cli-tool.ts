@@ -53,6 +53,18 @@ export class CLITool{
                 type: 'boolean',
                 description: 'Run with verbose logging'
             })
+            .option('namespace', {
+                alias: 'n',
+                type: 'string',
+                description: 'Instance namespace URI (for IFC objects)',
+                default: 'https://web-bim/resources/'
+            })
+            .option('schema-namespace', {
+                alias: 'e',
+                type: 'string',
+                description: 'Schema namespace URI (for properties/classes)',
+                default: 'https://example.org/ifc-lbd/'
+            })
             .parse();
 
     }

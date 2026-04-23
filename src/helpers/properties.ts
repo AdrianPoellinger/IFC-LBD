@@ -223,7 +223,7 @@ export class PropertyAPI{
 
             const quantity: any = Quantities[i];
 
-            const uri = defaultURIBuilder(this.camelize(quantity.Name.value));
+            const uri = `ex:${encodeURIComponent(this.camelize(quantity.Name.value))}`;
 
             if(!this.quantityProperties[name].quantities.length || this.quantityProperties[name].quantities.map(item => item.uri).indexOf(uri) == -1){
                 this.quantityProperties[name].quantities.push({uri, label: quantity.Name.value});
@@ -294,7 +294,7 @@ export class PropertyAPI{
             const nominalValue = prop.NominalValue;
             if(nominalValue == undefined) continue;
             const value = this.nominalValueToJSONLD(nominalValue, this.normalizeToSI);
-            const uri = `inst:${propNameFull}`;
+            const uri = `ex:${propNameFull}`;
 
             propObject[uri] = value;
 

@@ -1,6 +1,6 @@
 export const prefixes = {
     "bot": "https://w3id.org/bot#",
-    "ex": "https://example.com/",
+    "ex": "https://example.org/ifc-lbd/",
     "fog": "https://w3id.org/fog#",
     "fso": "https://w3id.org/fso#",
     "ifc": "http://ifcowl.openbimstandards.org/IFC2X3_Final#",

@@ -11,6 +11,7 @@ export interface TreeNode{
 
 export class ParserSettings{
     namespace: string = "https://web-bim/resources/";
+    schemaNamespace: string = "https://example.org/ifc-lbd/";
     subsets: Subsets = new Subsets();
     outputFormat: SerializationFormat = SerializationFormat.JSONLD;
     normalizeToSIUnits: boolean = true;

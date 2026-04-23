@@ -7,3 +7,5 @@ triples.json
 *.nq.gz
 dist
 demo/node_modules
+.venv/
+output/

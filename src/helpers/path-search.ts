@@ -114,20 +114,35 @@ export async function buildRelOneToMany(d: Input): Promise<any>{
 
         const relID = rels[i];
 
-        const relProps = await d.ifcAPI.properties.getItemProperties(d.modelID, relID);
+        let relProps: any;
+        try {
+            relProps = await d.ifcAPI.properties.getItemProperties(d.modelID, relID);
+        } catch(e) {
+            continue;
+        }
 
         // Only continue if the interface is between an element and a space
         if(!relProps[d.ifcSubjectRel] || !relProps[d.ifcTargetRel]) { continue; }
+        if(relProps[d.ifcSubjectRel].value == null) { continue; }
 
-        const subject = await d.ifcAPI.properties.getItemProperties(d.modelID, relProps[d.ifcSubjectRel].value);
+        let subject: any;
+        try {
+            subject = await d.ifcAPI.properties.getItemProperties(d.modelID, relProps[d.ifcSubjectRel].value);
+        } catch(e) {
+            continue;
+        }
 
         if(d.ifcSubjectClassIn.length && d.ifcSubjectClassIn.indexOf(subject.type) == -1) { continue; }
 
         const targetPromises: any = [];
         for (let i = 0; i < relProps[d.ifcTargetRel].length; i++) {
-            targetPromises.push(d.ifcAPI.properties.getItemProperties(d.modelID, relProps[d.ifcTargetRel][i].value));
+            if(relProps[d.ifcTargetRel][i].value == null) { continue; }
+            targetPromises.push(
+                d.ifcAPI.properties.getItemProperties(d.modelID, relProps[d.ifcTargetRel][i].value)
+                    .catch(() => null)
+            );
         }
-        const targets = await Promise.all(targetPromises);
+        const targets = (await Promise.all(targetPromises)).filter((t: any) => t != null);
 
         let types = new Set();
         const targetObjects = targets

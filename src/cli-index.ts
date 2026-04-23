@@ -21,6 +21,8 @@ async function main(){
     const settings = new ParserSettings();
     settings.outputFormat = args.format;
     settings.verbose = args.verbose;
+    if(args.namespace) settings.namespace = args.namespace;
+    if(args.schemaNamespace) settings.schemaNamespace = args.schemaNamespace;
     if(subset == "all"){
         settings.subsets.BOT = true;
         settings.subsets.PRODUCTS = true;
